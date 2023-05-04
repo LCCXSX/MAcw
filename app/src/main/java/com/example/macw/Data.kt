@@ -6,6 +6,7 @@ data class EducatorData (  var emailAddress:String,
 )
 data class Course(val name: String,
                   val description: String
+
 )
 data class Learner(val emailAddress: String,
                    val password: String,
