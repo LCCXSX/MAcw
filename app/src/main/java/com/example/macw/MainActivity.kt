@@ -17,7 +17,10 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.macw.databinding.ActivityMainBinding
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.firestore.Source
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
@@ -27,8 +30,10 @@ class MainActivity : AppCompatActivity() {
     lateinit var educatorRadioButton: RadioButton
     lateinit var database: FirebaseDatabase
     var db = Firebase.firestore
+    private lateinit var auth: FirebaseAuth
     //private lateinit var learner: Learner
     //private lateinit var educator:Educator
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -36,6 +41,7 @@ class MainActivity : AppCompatActivity() {
         val passwordEditText = findViewById<EditText>(R.id.passwordEditText)
         val registerButton = findViewById<Button>(R.id.registerButton)
         val loginButton=findViewById<Button>(R.id.loginButton)
+        auth = Firebase.auth
         //val learnerRadioButton=findViewById<RadioButton>(R.id.learnerRadioButton)
         //val educatorRadioButton=findViewById<RadioButton>(R.id.educatorRadioButton)
         userTypeRadioGroup=findViewById(R.id.identityRadioGroup)
@@ -68,11 +74,12 @@ class MainActivity : AppCompatActivity() {
             if(selectedUserType=="Educator"){
                 val educator= hashMapOf<String,Any>(
                     "Email" to email,
-                    "Password" to password
+                    "Password" to password,
+                    "Educator" to "Educator"
                 )
                 //db.collection("users").document("Educators").set(educator)
 
-                db.collection("Users").document("Educators").collection(email).add(educator)
+                db.collection(selectedUserType).add(educator)
                     .addOnSuccessListener {
                         // 注册成功后跳转到主页
                         //Log.d(TAG, "DocumentSnapshot added with ID: ${it.id}")
@@ -87,10 +94,11 @@ class MainActivity : AppCompatActivity() {
             }else{
                 val learner= hashMapOf<String,Any>(
                     "Email" to email,
-                    "Password" to password
+                    "Password" to password,
+                    "Learner" to "Learner"
                 )
 
-                db.collection("Users").document("Learners").collection(email).add(learner)
+                db.collection(selectedUserType).add(learner)
                     .addOnSuccessListener {
                         // 注册成功后跳转到主页
                         val intent = Intent(this, MainActivity::class.java)
@@ -132,66 +140,33 @@ class MainActivity : AppCompatActivity() {
                 ).show()
                 return@setOnClickListener
             }
-
+            Log.d("selectedUserType","${selectedUserType}")
+            Log.d("doazhe ","run here")
             // 登录用户
-
-           db.collection("Users").document(selectedUserType)
-                .collection(email)
-                .whereEqualTo("emailAddress", email)
-                .get()
-                .addOnSuccessListener { task ->
-
-                        val pass=task.documents[0].data?.get("password")
-                        if(pass==password){
-                            if(selectedUserType=="Learner"){
-                                val intent = Intent(this, LearnerActivity::class.java)
-                                startActivity(intent)
-                                finish()
-                            }
-
+            lateinit  var documentId:String
+            db.collection(selectedUserType).whereEqualTo("Email",email).whereEqualTo("Password",password).get()
+                .addOnSuccessListener { document ->
+                    if (document != null) {
+                        Log.d("wode", "DocumentSnapshot data: ${document.documents[0].data}")
+                        if(selectedUserType=="Educator"){
+                            val intent = Intent(this, EducatorActivity::class.java)
+                            startActivity(intent)
+                            finish()
+                        }else if(selectedUserType=="Learner"){
+                            val intent = Intent(this, LearnerActivity::class.java)
+                            startActivity(intent)
+                            finish()
                         }
-
-
-                }
-               .addOnFailureListener { exception ->
-                   Log.e("wode", "Error getting documents: ", exception)
-
+                    } else {
+                        Log.d(TAG, "No such document")
                     }
+                }
+                .addOnFailureListener { exception ->
+                    Log.d(TAG, "get failed with ", exception)
+                }
 
 
-//            val query = db.collection("Users")
-//                .whereEqualTo("email", email)
-//                .whereEqualTo("password", password)
-//                .limit(1)
-//
-//
-//// 执行查询，并在结果准备好时进行处理
-//            query.get()
-//                .addOnSuccessListener { querySnapshot ->
-//                    // 检查是否有匹配的文档
-//                    if (!querySnapshot.isEmpty) {
-//                        val documentSnapshot = querySnapshot.documents[0]
-//                        // 从文档中提取用户类型
-//                        val userType = documentSnapshot.getString("userType")
-//                        // 检查用户类型并重定向到相应的页面
-//                        if (userType == "Educator") {
-//                            // 将用户重定向到 educator 页面
-//                            val intent = Intent(this, EducatorActivity::class.java)
-//                            startActivity(intent)
-//                            finish()
-//                        } else if (userType == "Learner") {
-//                            // 将用户重定向到 learner 页面
-//                            val intent = Intent(this, LearnerActivity::class.java)
-//                            startActivity(intent)
-//                            finish()
-//                        }
-//                    } else {
-//                        // 没有找到匹配的文档，显示错误消息
-//                    }
-//                }
-//                .addOnFailureListener { exception ->
-//                    "Not find"// 处理查询失败的情况
-//                }
         }
     }
 }
+
