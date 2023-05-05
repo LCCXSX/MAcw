@@ -27,4 +27,9 @@
         android:name="com.example.macw.ui.learner.Studyfragment"
         android:label="@string/title_study"
         tools:layout="@layout/fragment_learner" />
+    <fragment
+        android:id="@+id/navigation_educator_Add_course"
+        android:name="com.example.macw.ui.educator.EducatorAddfragment"
+        android:label="@string/title_add_course"
+        tools:layout="@layout/item_fragment_add_educator" />
 </navigation>

@@ -23,13 +23,13 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.Source
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-
+var db = Firebase.firestore
 class MainActivity : AppCompatActivity() {
     lateinit var userTypeRadioGroup: RadioGroup
     lateinit var learnerRadioButton: RadioButton
     lateinit var educatorRadioButton: RadioButton
     lateinit var database: FirebaseDatabase
-    var db = Firebase.firestore
+
     private lateinit var auth: FirebaseAuth
     //private lateinit var learner: Learner
     //private lateinit var educator:Educator
@@ -75,7 +75,7 @@ class MainActivity : AppCompatActivity() {
                 val educator= hashMapOf<String,Any>(
                     "Email" to email,
                     "Password" to password,
-                    "Educator" to "Educator"
+                    "UserType" to "Educator"
                 )
                 //db.collection("users").document("Educators").set(educator)
 
@@ -95,7 +95,7 @@ class MainActivity : AppCompatActivity() {
                 val learner= hashMapOf<String,Any>(
                     "Email" to email,
                     "Password" to password,
-                    "Learner" to "Learner"
+                    "UserType" to "Learner"
                 )
 
                 db.collection(selectedUserType).add(learner)
@@ -170,3 +170,11 @@ class MainActivity : AppCompatActivity() {
     }
 }
 
+fun checkEmail(Inputemail:String,selectUsertype:String):Boolean{
+    if(db.collection(selectUsertype).whereEqualTo("Email",Inputemail).get()!=null){
+        return false
+    }else{
+        return true
+    }
+
+}
