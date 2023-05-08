@@ -2,29 +2,28 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
-
+    app:startDestination="@id/educator_home"
+    android:id="@+id/educator_navigation">
     <fragment
-        android:id="@+id/navigation_home"
+        android:id="@+id/educator_home"
         android:name="com.example.macw.ui.home.HomeFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
+        android:id="@+id/educator_dashboard"
         android:name="com.example.macw.ui.dashboard.DashboardFragment"
         android:label="@string/title_dashboard"
         tools:layout="@layout/fragment_dashboard" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
+        android:id="@+id/educator_notifications"
         android:name="com.example.macw.ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
     <fragment
-        android:id="@+id/navigation_learner_study"
-        android:name="com.example.macw.ui.learner.Studyfragment"
-        android:label="@string/title_study"
-        tools:layout="@layout/fragment_learner" />
+        android:id="@+id/navigation_educator_Add_course"
+        android:name="com.example.macw.ui.educator.EducatorAddfragment"
+        android:label="@string/title_add_course"
+        tools:layout="@layout/item_fragment_add_educator" />
 </navigation>

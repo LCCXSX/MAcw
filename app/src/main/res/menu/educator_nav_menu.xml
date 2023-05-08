@@ -1,23 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-
     <item
-        android:id="@+id/navigation_home"
+        android:id="@+id/educator_home"
         android:icon="@drawable/ic_home_black_24dp"
         android:title="@string/title_home" />
 
     <item
-        android:id="@+id/navigation_dashboard"
+        android:id="@+id/educator_dashboard"
         android:icon="@drawable/ic_dashboard_black_24dp"
         android:title="@string/title_dashboard" />
 
     <item
-        android:id="@+id/navigation_notifications"
+        android:id="@+id/educator_notifications"
         android:icon="@drawable/ic_notifications_black_24dp"
         android:title="@string/title_notifications" />
     <item
-        android:id="@+id/navigation_learner_study"
-        android:icon="@drawable/icon_study"
-        android:title="@string/title_study" />
-
+        android:id="@+id/navigation_educator_Add_course"
+        android:icon="@drawable/add_course"
+        android:title="@string/title_add_course" />
 </menu>

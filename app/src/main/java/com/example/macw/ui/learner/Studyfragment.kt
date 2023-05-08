@@ -15,7 +15,7 @@ class Studyfragment : Fragment(R.layout.fragment_learner){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val recycler_view=view.findViewById<RecyclerView>(R.id.recycler_view)
-        recycler_view.layoutManager= LinearLayoutManager(context)
+        recycler_view.layoutManager= LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false)
         recycler_view.adapter=StudyAdapter()
     }
 

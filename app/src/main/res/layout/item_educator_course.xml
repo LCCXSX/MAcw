@@ -24,7 +24,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="18dp"
                 android:textColor="#000000"
-                android:text="课程预览"
+                android:text="课程名称"
                 android:textStyle="bold"
                 android:singleLine="true"
                 android:maxLength="10"

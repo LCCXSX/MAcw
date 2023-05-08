@@ -1,19 +1,28 @@
 package com.example.macw
 
 import android.os.Bundle
+import android.util.Log
+import android.view.Menu
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.Navigation.findNavController
+import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class EducatorActivity :AppCompatActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.item_fragment_add_educator)
-        val navView: BottomNavigationView = findViewById(R.id.text_course)
-        val navController = findNavController(R.id.)
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
+        Log.d("daozhele","run educator activity")
+        setContentView(R.layout.educator_main)
+
+        val navView: BottomNavigationView = findViewById(R.id.educator_view)
+        val navController = findNavController(R.id.nav_host_fragment_educator_main)
         navView.setupWithNavController(navController)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.educator_nav_menu, menu)
+        return super.onCreateOptionsMenu(menu)
     }
 }

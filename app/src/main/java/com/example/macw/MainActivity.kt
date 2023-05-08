@@ -143,22 +143,38 @@ class MainActivity : AppCompatActivity() {
             Log.d("selectedUserType","${selectedUserType}")
             Log.d("doazhe ","run here")
             // 登录用户
-            lateinit  var documentId:String
-            db.collection(selectedUserType).whereEqualTo("Email",email).whereEqualTo("Password",password).get()
+            db.collection(selectedUserType).whereEqualTo("Email",email).get()
                 .addOnSuccessListener { document ->
                     if (document != null) {
                         Log.d("wode", "DocumentSnapshot data: ${document.documents[0].data}")
-                        if(selectedUserType=="Educator"){
-                            val intent = Intent(this, EducatorActivity::class.java)
-                            startActivity(intent)
-                            finish()
-                        }else if(selectedUserType=="Learner"){
-                            val intent = Intent(this, LearnerActivity::class.java)
-                            startActivity(intent)
-                            finish()
+                        for (document in document){
+                            if(document.get("Password")==password){
+                                if(selectedUserType=="Educator"){
+
+                                    val intent = Intent(this, EducatorActivity::class.java)
+                                    startActivity(intent)
+                                    //Log.d("daozhele","run educator activity")
+                                    finish()
+                                }else if(selectedUserType=="Learner"){
+                                    val intent = Intent(this, LearnerActivity::class.java)
+                                    startActivity(intent)
+                                    finish()
+                                }
+                            }else{
+                                Toast.makeText(
+                                    this, "密码输入错误",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                                return@addOnSuccessListener
+                            }
                         }
+
                     } else {
-                        Log.d(TAG, "No such document")
+                        Toast.makeText(
+                            this, "账号输入错误",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        return@addOnSuccessListener
                     }
                 }
                 .addOnFailureListener { exception ->
@@ -170,11 +186,3 @@ class MainActivity : AppCompatActivity() {
     }
 }
 
-fun checkEmail(Inputemail:String,selectUsertype:String):Boolean{
-    if(db.collection(selectUsertype).whereEqualTo("Email",Inputemail).get()!=null){
-        return false
-    }else{
-        return true
-    }
-
-}

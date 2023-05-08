@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+
     <item
         android:id="@+id/navigation_home"
         android:icon="@drawable/ic_home_black_24dp"
@@ -15,7 +16,7 @@
         android:icon="@drawable/ic_notifications_black_24dp"
         android:title="@string/title_notifications" />
     <item
-        android:id="@+id/navigation_educator_Add_course"
-        android:icon="@drawable/add_course"
-        android:title="@string/title_add_course" />
+        android:id="@+id/navigation_learner_study"
+        android:icon="@drawable/icon_study"
+        android:title="@string/title_study" />
 </menu>
