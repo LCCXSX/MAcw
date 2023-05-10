@@ -8,6 +8,22 @@
     android:orientation="vertical"
     tools:context=".ui.educator.EducatorAddfragment">
 
+        <Button
+            android:text="add"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:backgroundTint="@color/white"
+            android:textColor="@color/black"
+            style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+            app:icon="@drawable/icon_add"
+            app:iconSize="20dp"
+            app:iconGravity="end"
+            app:iconTint="@color/black"
+            android:layout_marginLeft="260dp"
+            android:id="@+id/add_button"
+            />
+
+
     <TextView
         android:id="@+id/text_course"
         android:layout_width="match_parent"
@@ -20,8 +36,18 @@
         android:textAlignment="center"
         android:textSize="20sp"
         />
+<!--    <Button-->
+<!--        android:layout_width="40dp"-->
+<!--        android:layout_height="40dp"-->
+<!--        android:layout_marginLeft="300dp"-->
+
+<!--        />-->
+
+
     <androidx.recyclerview.widget.RecyclerView android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/recycler_view"/>
 
+
 </LinearLayout>
+

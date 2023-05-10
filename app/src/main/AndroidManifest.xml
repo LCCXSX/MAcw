@@ -26,6 +26,8 @@
             android:exported="true"/>
         <activity android:name=".EducatorActivity"
             android:exported="true"/>
+        <activity android:name=".AddCourseActivity"
+            android:exported="true"/>
     </application>
 
 </manifest>

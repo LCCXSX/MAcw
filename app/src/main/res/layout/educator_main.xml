@@ -33,5 +33,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0"
         app:navGraph="@navigation/educator_navigation"
-        tools:layout="@layout/item_fragment_add_educator" />
+        tools:layout="@layout/item_fragment_add_educator"
+
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>
